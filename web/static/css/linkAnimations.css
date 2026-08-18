@@ -1,0 +1,27 @@
+
+a.anim {
+  position: relative;
+  transition: 0.2s ease-out all;
+}
+
+a.anim:hover {
+  color: var(--accent-color);
+}
+
+a.anim:before {
+  content: "";
+  border-radius: 8px;
+  position: absolute;
+  display: block;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  transition: 0.2s ease-out all;
+  transform: scaleX(0);
+  background: var(--accent-color);
+}
+
+a.anim:hover:before {
+  transform: scaleX(1);
+}

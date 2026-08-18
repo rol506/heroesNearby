@@ -1,0 +1,45 @@
+
+/* FLASH MESSAGES */
+@keyframes flashSlideIn {
+  0% { transform: translateX(200%); opacity: 0; }
+  80% { transform: translateX(0%); }
+  100% { transform: translateX(0%); opacity: 1; }
+}
+
+@keyframes flashSlideOut {
+  100% { transform: translateX(200%); opacity: 0; }
+  20% { transform: translateX(0%); }
+  0% { transform: translateX(0%); opacity: 1; }
+}
+
+div.flash-info {
+  background: #1cea75;
+}
+
+div.flash-error {
+  background: #e26666;
+}
+
+div.flashed {
+  position: fixed;
+  right: 0px;
+  top: 50px;
+  padding-right: 15px;
+  overflow: hidden;
+}
+
+div.flash {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  animation: flashSlideIn forwards ease-out;
+  animation-duration: 0.5s;
+  transform: translateX(200%);
+  overflow: hidden;
+  opacity: 0;
+}
+
+div.flash.flashClosed {
+  animation: flashSlideOut forwards ease-out;
+  animation-duration: 0.5s;
+}

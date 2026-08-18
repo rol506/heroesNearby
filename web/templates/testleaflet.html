@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Street Search Map</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    #map { height: 90vh; width: 100%; }
+    #search-bar { padding: 10px; }
+    #results { list-style: none; padding: 0; margin: 0; }
+    #results li { padding: 6px; cursor: pointer; border-bottom: 1px solid #eee; }
+    #results li:hover { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+
+  <div id="search-bar">
+    <input type="text" id="street-input" placeholder="Search street name..." />
+    <button id="search-btn">Search</button>
+    <ul id="results"></ul>
+  </div>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{url_for('static', filename='js/app.js')}}"></script>
+</body>
+</html>

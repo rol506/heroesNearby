@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      {{super()}}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+      {{super()}}
+    <script>
+function geoSuccess(pos) {
+  sendInfo(`${pos.coords.latitude} ${pos.coords.longitude}`);
+  console.log(pos);
+}
+
+function geoDenied(err) {
+  switch (err.code) {
+    case 1:
+      sendError("PERMISSION DENIED");
+      break;
+    case 2:
+      sendError("POSITION UNAVAILABLE");
+      break;
+    case 3:
+      sendError("TIMEOUT");
+      break;
+  }
+  console.log(err);
+}
+
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(geoSuccess, geoDenied);
+} else {
+  sendError("GEOLOCATION UNSUPPORTED");
+}
+    </script>
+    {% endblock %}
+  </body>
+</html>

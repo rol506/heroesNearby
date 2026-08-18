@@ -1,0 +1,5 @@
+pg_data
+venv
+.env
+log.txt
+*/src/__pycache__

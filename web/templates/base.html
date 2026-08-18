@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+      {% block css %}
+      <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/flashMessages.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/linkAnimations.css')}}">
+      <link rel="stylesheet" href="{{url_for('static', filename='css/mediaQueries.css')}}">
+      {% endblock %}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    <div class="flashed" id="flashed">
+      {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash-{{cat}} flash">{{msg}}</div>
+      {% endfor %}
+      <script>
+        let els = document.querySelectorAll('div.flash');
+        for (let el of els)
+        {
+          if (!el.classList.contains("timeout"))
+          {
+            el.classList.add("timeout");
+            window.setInterval(() => {el.classList.add("flashClosed");}, 5000);
+          }
+        }
+      </script>
+    </div>
+    <script>
+      let flash = document.getElementById("flashed");
+      function sendError(text)
+      {
+        const d = document.createElement("div");
+        window.setInterval(() => {d.classList.add("flashClosed");}, 5000);
+        flash.appendChild(d);
+        d.classList.add("timeout");
+        d.classList.add("flash-error");
+        d.classList.add("flash");
+        d.innerHTML = text;
+      }
+      function sendInfo(text)
+      { 
+        const d = document.createElement("div");
+        window.setInterval(() => {d.classList.add("flashClosed");}, 5000);
+        flash.appendChild(d);
+        d.classList.add("timeout");
+        d.classList.add("flash-info");
+        d.classList.add("flash");
+        d.innerHTML = text; 
+      }
+    </script>
+    {% endblock %}
+  </body>
+</html>
