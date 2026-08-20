@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    {{super()}}
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}
+    {{super()}}
+    <main>
+      <div id="leftcorner">
+        <div id="search-bar">
+          <button id="search-btn"><img src=""></button>
+          <input type="text" id="street-input" placeholder="Поиск..." value="Черняховского">
+          <button id="filter-btn"><img src=""></button>
+        </div>
+        <ul id="search-results"></ul>
+      </div>
+      <button id="recommends"><span>Куда сходить</span><img src="%D0%A5%D0%BE%D0%B4%20%D0%B3%D0%B5%D1%80%D0%BE%D1%8F_files/map_-QqW.svg"></button>
+    </main>
+    <div id="map"></div>
+    <aside id="aside" class="active">
+      <span class="separator" style="margin-top: 100px;"></span>
+      <div class="carousel">
+        <div class="img-carousel" style="z-index: 900;"><img src="%D0%A5%D0%BE%D0%B4%20%D0%B3%D0%B5%D1%80%D0%BE%D1%8F_files/2_-QqW.jpg" alt="Image 1"></div>
+        <div class="img-carousel" style="z-index: 910;"><img src="%D0%A5%D0%BE%D0%B4%20%D0%B3%D0%B5%D1%80%D0%BE%D1%8F_files/1_-QqW.jpg" alt="Image 2"></div>
+        <button id="button-prev">&lt;</button>
+        <button id="button-next">&gt;</button>
+      </div>
+      <div class="fact">
+        <h3>Интересный факт</h3>
+        <span id="fact">Lorem ipsum dolor sit amet consectetur 
+          adipisicing elit. Assumenda eveniet quia omnis facilis praesentium. 
+          Eveniet illo rerum quasi sed? Eum commodi eligendi porro fugit. Quod 
+          fuga autem possimus enim vel!</span>
+      </div>
+      <button id="continue" class="active">Читать дальше</button>
+      <div id="description">
+        <h3>Подробнее</h3>
+        <span id="descriptionSpan">Lorem ipsum dolor sit amet, 
+          consectetur adipisicing elit. Iure maxime quibusdam dolor quidem 
+          provident facere, praesentium iusto, similique temporibus, sapiente 
+          neque numquam! Facere corporis, asperiores eveniet voluptatem hic 
+          dolorem cum.</span>
+      </div>
+      <button id="close">Свернуть</button>
+    </aside>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{url_for('static', filename='js/map.js')}}"></script>
+    <script>
+    (function() {
+      var carouselImages = document.querySelectorAll('.img-carousel');
+      var currentIndex = 0;
+      var autoRotateInterval = null;
+
+      function showNextImage() {
+        currentIndex = (currentIndex + 1) % carouselImages.length;
+        updateCarousel();
+      }
+
+      function showPrevImage() {
+        currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+        updateCarousel();
+      }
+
+      function updateCarousel() {
+        carouselImages.forEach((img, index) => {
+          if (index === currentIndex) {
+            img.style.zIndex = 910;
+          } else {
+            img.style.zIndex = 900;
+          }
+        });
+      }
+
+      document.getElementById('button-prev').addEventListener('click', showPrevImage);
+      document.getElementById('button-next').addEventListener('click', showNextImage);
+
+      if (carouselImages.length > 1) {
+        autoRotateInterval = setInterval(showNextImage, 5000);
+      }
+
+      document.getElementById('button-prev').addEventListener('mouseenter', function() {
+        clearInterval(autoRotateInterval);
+      });
+
+      document.getElementById('button-prev').addEventListener('mouseleave', function() {
+        if (carouselImages.length > 1) {
+          autoRotateInterval = setInterval(showNextImage, 5000);
+        }
+      });
+
+      document.getElementById('button-next').addEventListener('mouseenter', function() {
+        clearInterval(autoRotateInterval);
+      });
+
+      document.getElementById('button-next').addEventListener('mouseleave', function() {
+        if (carouselImages.length > 1) {
+          autoRotateInterval = setInterval(showNextImage, 5000);
+        }
+      });
+    })();
+    </script>
+    {% endblock %}
+
+  </body>
+</html>

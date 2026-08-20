@@ -4,11 +4,49 @@
   <head>
     {% block head %}
       {{super()}}
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     {% endblock %}
   </head>
   <body>
     {% block body %}
       {{super()}}
+      <main>
+        <div id="leftcorner">
+          <div id="search-bar">
+            <button id="search-btn"><img src="{{url_for('static', filename='images/search.svg')}}"></button>
+            <input type="text" id="street-input" placeholder="Поиск...">
+            <button id="filter-btn"><img src="{{url_for('static', filename='images/filter.svg')}}"></button>
+          </div>
+          <ul id="search-results"></ul>
+        </div>
+        <button id="recommends"><span>Куда сходить</span><img src="{{url_for('static', filename='images/map.svg')}}"></button>
+        <div id="map"></div>
+      </main>
+      <aside id="aside" class="active">
+        <span class="separator" style="margin-top: 100px;"></span>
+        <div class="carousel">
+          <div class="img-carousel" style="z-index: 900;"><img src="{{url_for('static', filename='images/1.jpg')}}"></div>
+          <div class="img-carousel" style="z-index: 910;"><img src="{{url_for('static', filename='images/2.jpg')}}"></div>
+          <!--<button id="button-prev">&lt;</button>-->
+          <button id="button-next">&gt;</button>
+        </div>
+        <div class="fact">
+          <h3>Интересный факт</h3>
+          <span id="fact">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda eveniet quia omnis facilis praesentium. Eveniet illo rerum quasi sed? Eum commodi el
+igendi porro fugit. Quod fuga autem possimus enim vel!</span>
+        </div>
+        <button id="continue" class="active">Читать дальше</button>
+        <div id="description">
+          <h3>Подробнее</h3>
+          <span id="descriptionSpan">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure maxime quibusdam dolor quidem provident facere, praesentium iusto, similique 
+temporibus, sapiente neque numquam! Facere corporis, asperiores eveniet voluptatem hic dolorem cum.</span>
+        </div>
+        <button id="close">Свернуть</button>
+        <span class="separator" style="margin-top: 20px;"></span>
+        <h3>Рекомендуемые</h3>
+      </aside>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+      <script src="{{url_for('static', filename='js/map.js')}}"></script>
     {% endblock %}
   </body>
 </html>
